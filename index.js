@@ -132,6 +132,13 @@ function render() {
     // bottom left
     drawWireFrame(10, -10, 0, 10, -10, 20);
 
+    //Roof
+    drawWireFrame(-10, 10, 20, 0, 20, 20); // fr
+    drawWireFrame(10, 10, 20, 0, 20, 20); // fl
+    drawWireFrame(-10, 10, 0, 0, 20, 0); // br
+    drawWireFrame(10, 10, 0, 0, 20, 0); // bl
+    drawWireFrame(0, 20, 20, 0, 20, 0) // link
+
 
     // Pyramid
 
@@ -156,7 +163,7 @@ function render() {
     // back left
     drawWireFrame(-50, 10, 10, -60, -10, 20, colours.red);
 
-    drawTexturedPlane(0,-10,0,20);
+    //drawTexturedPlane(0,-10,30,20);
 
 }
 render();
