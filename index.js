@@ -13,12 +13,16 @@ const t = new bt.Turtle();
 
 // PROGRAM SETTINGS
 // initial translation values
-let camX = 0;
-let camY = 0; // vertical
-let camZ = 50;
+let camX = -60;
+let camY = 10; // vertical
+let camZ = 70;
+// rotation
+let rotX = 0;
+let rotY = -0.3; // extremely sensitive
+
 
 // focal length
-let focalLength = 50;
+let focalLength = -50; // keep this negative or else everything will be upside down
 
 // near plane
 let nearPlane = 5;
@@ -47,9 +51,7 @@ let sinX = 1;
 let cosY = 1;
 let sinY = 1;
 
-// rotation
-let rotX = 0;
-let rotY = 0;
+
 
 // define colors
 const colours = {
