@@ -14,15 +14,15 @@ const t = new bt.Turtle();
 // PROGRAM SETTINGS
 // initial translation values
 let camX = 0;
-let camY = 15; // vertical
-let camZ = 80;
+let camY = 120; // vertical
+let camZ = 150;
 // rotation
 let rotX = 0;
 let rotY = 0; // extremely sensitive
 
 
 // focal length
-let focalLength = -50; // keep this negative or else everything will be upside down
+let focalLength = -80; // keep this negative or else everything will be upside down
 
 // near plane
 let nearPlane = 11;
@@ -51,7 +51,7 @@ let sinX = 1;
 let cosY = 1;
 let sinY = 1;
 
-const scaling = 5;
+const scaling = 8;
 
 // paste the stl between the ` `
 const stl = `
