@@ -5,27 +5,27 @@ THIS IS WIP IM PORTING MY WIREFRAME ENGINE FOR SPRIG TO BLOT AND POSSIBLY ADDING
 */
 
 // BLOT SETTINGS
-const width = 160; // 160
-const height = 128; // 128
+const width = 160*4; // 160
+const height = 128*4; // 128
 setDocDimensions(width, height);
 const finalLines = [];
 const t = new bt.Turtle();
 
 // PROGRAM SETTINGS
 // initial translation values
-let camX = -60;
-let camY = 10; // vertical
-let camZ = 70;
+let camX = 0;
+let camY = 15; // vertical
+let camZ = 80;
 // rotation
 let rotX = 0;
-let rotY = -0.3; // extremely sensitive
+let rotY = 0; // extremely sensitive
 
 
 // focal length
 let focalLength = -50; // keep this negative or else everything will be upside down
 
 // near plane
-let nearPlane = 5;
+let nearPlane = 11;
 
 // percentage
 let percent = 0;
@@ -51,23 +51,11 @@ let sinX = 1;
 let cosY = 1;
 let sinY = 1;
 
+const scaling = 5;
+
 // paste the stl between the ` `
 const stl = `
 solid Exported from Blender-4.1.1
-facet normal 0.000000 0.000000 1.000000
-outer loop
-vertex 0.000000 0.000000 5.000000
-vertex 0.000000 10.000000 5.000000
-vertex -5.000000 10.000000 5.000000
-endloop
-endfacet
-facet normal 0.000000 0.000000 1.000000
-outer loop
-vertex 0.000000 0.000000 5.000000
-vertex -5.000000 10.000000 5.000000
-vertex -5.000000 0.000000 5.000000
-endloop
-endfacet
 facet normal 0.000000 0.000000 -1.000000
 outer loop
 vertex -5.000000 8.820884 -3.820884
@@ -86,42 +74,28 @@ facet normal 0.000000 -1.000000 0.000000
 outer loop
 vertex -5.000000 0.000000 3.820884
 vertex -5.000000 0.000000 -3.820884
-vertex 0.000000 0.000000 -3.820884
+vertex 5.000000 0.000000 -3.820884
 endloop
 endfacet
 facet normal 0.000000 -1.000000 0.000000
 outer loop
 vertex -5.000000 0.000000 3.820884
-vertex 0.000000 0.000000 -3.820884
-vertex 0.000000 0.000000 3.820884
+vertex 5.000000 0.000000 -3.820884
+vertex 5.000000 0.000000 3.820884
 endloop
 endfacet
-facet normal 0.000000 1.000000 0.000000
+facet normal 0.000000 0.000000 1.000000
 outer loop
+vertex -5.000000 0.000000 5.000000
+vertex 5.000000 0.000000 5.000000
+vertex 5.000000 10.000000 5.000000
+endloop
+endfacet
+facet normal 0.000000 0.000000 1.000000
+outer loop
+vertex -5.000000 0.000000 5.000000
+vertex 5.000000 10.000000 5.000000
 vertex -5.000000 10.000000 5.000000
-vertex 0.000000 10.000000 5.000000
-vertex 0.000000 10.000000 -5.000000
-endloop
-endfacet
-facet normal 0.000000 1.000000 0.000000
-outer loop
-vertex -5.000000 10.000000 5.000000
-vertex 0.000000 10.000000 -5.000000
-vertex -5.000000 10.000000 -5.000000
-endloop
-endfacet
-facet normal 0.000000 0.000000 -1.000000
-outer loop
-vertex -5.000000 10.000000 -5.000000
-vertex 0.000000 10.000000 -5.000000
-vertex 0.000000 6.111125 -5.000000
-endloop
-endfacet
-facet normal 0.000000 0.000000 -1.000000
-outer loop
-vertex -5.000000 10.000000 -5.000000
-vertex 0.000000 6.111125 -5.000000
-vertex -3.105865 6.110402 -5.000000
 endloop
 endfacet
 facet normal -1.000000 0.000000 0.000000
@@ -168,37 +142,16 @@ endloop
 endfacet
 facet normal 0.000000 -1.000000 0.000000
 outer loop
-vertex -3.106116 0.000000 -5.000000
-vertex 0.000000 0.000000 -5.000000
-vertex 0.000000 0.000000 -3.820884
-endloop
-endfacet
-facet normal 0.000000 -1.000000 0.000000
-outer loop
-vertex 0.000000 0.000000 -3.820884
-vertex -5.000000 0.000000 -3.820884
-vertex -5.000000 0.000000 -5.000000
-endloop
-endfacet
-facet normal 0.000000 -1.000000 0.000000
-outer loop
-vertex 0.000000 0.000000 -3.820884
-vertex -5.000000 0.000000 -5.000000
-vertex -3.106116 0.000000 -5.000000
-endloop
-endfacet
-facet normal 0.000000 -1.000000 0.000000
-outer loop
+vertex 5.000000 0.000000 5.000000
 vertex -5.000000 0.000000 5.000000
 vertex -5.000000 0.000000 3.820884
-vertex 0.000000 0.000000 3.820884
 endloop
 endfacet
 facet normal 0.000000 -1.000000 0.000000
 outer loop
-vertex -5.000000 0.000000 5.000000
-vertex 0.000000 0.000000 3.820884
-vertex 0.000000 0.000000 5.000000
+vertex 5.000000 0.000000 5.000000
+vertex -5.000000 0.000000 3.820884
+vertex 5.000000 0.000000 3.820884
 endloop
 endfacet
 facet normal 1.000000 0.000001 0.000000
@@ -637,48 +590,6 @@ endloop
 endfacet
 facet normal 0.000000 0.000000 -1.000000
 outer loop
-vertex -5.000000 0.000000 -5.000000
-vertex -5.000000 10.000000 -5.000000
-vertex -3.105865 6.110402 -5.000000
-endloop
-endfacet
-facet normal 0.000000 0.000000 -1.000000
-outer loop
-vertex -5.000000 0.000000 -5.000000
-vertex -3.105865 6.110402 -5.000000
-vertex -3.106116 0.000000 -5.000000
-endloop
-endfacet
-facet normal -0.000000 0.000000 -1.000000
-outer loop
-vertex -3.106116 0.000000 -5.000000
-vertex -3.105865 6.110402 -5.000000
-vertex 0.000000 6.111125 -5.000000
-endloop
-endfacet
-facet normal 0.000000 0.000000 -1.000000
-outer loop
-vertex -3.106116 0.000000 -5.000000
-vertex 0.000000 6.111125 -5.000000
-vertex 0.000000 0.000000 -5.000000
-endloop
-endfacet
-facet normal 0.000000 0.000000 1.000000
-outer loop
-vertex 0.000000 0.000000 5.000000
-vertex 5.000000 0.000000 5.000000
-vertex 5.000000 10.000000 5.000000
-endloop
-endfacet
-facet normal 0.000000 0.000000 1.000000
-outer loop
-vertex 0.000000 0.000000 5.000000
-vertex 5.000000 10.000000 5.000000
-vertex 0.000000 10.000000 5.000000
-endloop
-endfacet
-facet normal 0.000000 0.000000 -1.000000
-outer loop
 vertex 5.000000 8.820884 -3.820884
 vertex 17.282654 8.820884 -3.820884
 vertex 17.282654 0.000000 -3.820884
@@ -693,44 +604,30 @@ endloop
 endfacet
 facet normal 0.000000 -1.000000 0.000000
 outer loop
-vertex 5.000000 0.000000 3.820884
-vertex 0.000000 0.000000 3.820884
-vertex 0.000000 0.000000 -3.820884
+vertex 5.000000 0.000000 -5.000000
+vertex 5.000000 0.000000 -3.820884
+vertex -5.000000 0.000000 -3.820884
 endloop
 endfacet
 facet normal 0.000000 -1.000000 0.000000
 outer loop
-vertex 5.000000 0.000000 3.820884
-vertex 0.000000 0.000000 -3.820884
-vertex 5.000000 0.000000 -3.820884
+vertex 5.000000 0.000000 -5.000000
+vertex -5.000000 0.000000 -3.820884
+vertex -5.000000 0.000000 -5.000000
 endloop
 endfacet
 facet normal 0.000000 1.000000 0.000000
 outer loop
+vertex -5.000000 10.000000 -5.000000
+vertex -5.000000 10.000000 5.000000
 vertex 5.000000 10.000000 5.000000
-vertex 5.000000 10.000000 -5.000000
-vertex 0.000000 10.000000 -5.000000
 endloop
 endfacet
 facet normal 0.000000 1.000000 0.000000
 outer loop
+vertex -5.000000 10.000000 -5.000000
 vertex 5.000000 10.000000 5.000000
-vertex 0.000000 10.000000 -5.000000
-vertex 0.000000 10.000000 5.000000
-endloop
-endfacet
-facet normal -0.000000 0.000000 -1.000000
-outer loop
 vertex 5.000000 10.000000 -5.000000
-vertex 3.105865 6.110402 -5.000000
-vertex 0.000000 6.111125 -5.000000
-endloop
-endfacet
-facet normal 0.000000 0.000000 -1.000000
-outer loop
-vertex 5.000000 10.000000 -5.000000
-vertex 0.000000 6.111125 -5.000000
-vertex 0.000000 10.000000 -5.000000
 endloop
 endfacet
 facet normal 1.000000 0.000000 0.000000
@@ -773,41 +670,6 @@ outer loop
 vertex 5.000000 0.000000 -3.820884
 vertex 5.000000 10.000000 -5.000000
 vertex 5.000000 8.820884 -3.820884
-endloop
-endfacet
-facet normal 0.000000 -1.000000 0.000000
-outer loop
-vertex 0.000000 0.000000 -3.820884
-vertex 0.000000 0.000000 -5.000000
-vertex 3.106116 0.000000 -5.000000
-endloop
-endfacet
-facet normal 0.000000 -1.000000 0.000000
-outer loop
-vertex 3.106116 0.000000 -5.000000
-vertex 5.000000 0.000000 -5.000000
-vertex 5.000000 0.000000 -3.820884
-endloop
-endfacet
-facet normal 0.000000 -1.000000 0.000000
-outer loop
-vertex 3.106116 0.000000 -5.000000
-vertex 5.000000 0.000000 -3.820884
-vertex 0.000000 0.000000 -3.820884
-endloop
-endfacet
-facet normal 0.000000 -1.000000 0.000000
-outer loop
-vertex 5.000000 0.000000 5.000000
-vertex 0.000000 0.000000 5.000000
-vertex 0.000000 0.000000 3.820884
-endloop
-endfacet
-facet normal 0.000000 -1.000000 0.000000
-outer loop
-vertex 5.000000 0.000000 5.000000
-vertex 0.000000 0.000000 3.820884
-vertex 5.000000 0.000000 3.820884
 endloop
 endfacet
 facet normal -1.000000 -0.000003 0.000000
@@ -1246,37 +1108,23 @@ endloop
 endfacet
 facet normal 0.000000 0.000000 -1.000000
 outer loop
-vertex 5.000000 0.000000 -5.000000
-vertex 3.106116 0.000000 -5.000000
-vertex 3.105865 6.110402 -5.000000
-endloop
-endfacet
-facet normal 0.000000 0.000000 -1.000000
-outer loop
-vertex 5.000000 0.000000 -5.000000
-vertex 3.105865 6.110402 -5.000000
+vertex -5.000000 0.000000 -5.000000
+vertex -5.000000 10.000000 -5.000000
 vertex 5.000000 10.000000 -5.000000
 endloop
 endfacet
 facet normal 0.000000 0.000000 -1.000000
 outer loop
-vertex 3.106116 0.000000 -5.000000
-vertex 0.000000 0.000000 -5.000000
-vertex 0.000000 6.111125 -5.000000
-endloop
-endfacet
-facet normal 0.000000 0.000000 -1.000000
-outer loop
-vertex 3.106116 0.000000 -5.000000
-vertex 0.000000 6.111125 -5.000000
-vertex 3.105865 6.110402 -5.000000
+vertex -5.000000 0.000000 -5.000000
+vertex 5.000000 10.000000 -5.000000
+vertex 5.000000 0.000000 -5.000000
 endloop
 endfacet
 endsolid Exported from Blender-4.1.1
 
 `;
 
-const scaling = 1;
+
 
 function renderStl(stl){
     let lines = stl.split("\n");
@@ -1478,6 +1326,7 @@ function drawWireFrame(fx1, fy1, fz1, fx2, fy2, fz2, colour = "5")
 { // f stands for function
 
     // set initial points
+  // i inverted y so might cause problems later
     setPoint1((fx1 - camX), -(fy1 - camY), -(fz1 - camZ));
     setPoint2((fx2 - camX), -(fy2 - camY), -(fz2 - camZ));
 
@@ -1562,9 +1411,9 @@ function setPoint2(x, y, z)
 // add turtle to final lines
 bt.join(finalLines, t.lines());
 
-// center piece
-//const cc = bt.bounds(finalLines).cc;
-//bt.translate(finalLines, [width / 2, height / 2], cc);
+//center piece
+const cc = bt.bounds(finalLines).cc;
+bt.translate(finalLines, [width / 2, height / 2], cc);
 
 // draw it
 drawLines(finalLines);
